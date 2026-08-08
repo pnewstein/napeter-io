@@ -24,12 +24,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Image Processing",
 ]
 requires-python = ">=3.11"
-# napari can be included in dependencies if napari imports are required.
-# However, you should not include napari[all], napari[qt],
-# or any other Qt bindings directly (e.g. PyQt5, PySide2).
-# See best practices: https://napari.org/stable/plugins/building_a_plugin/best_practices.html
 dependencies = [
-    "numpy",
 ]
 
 [project.optional-dependencies]
