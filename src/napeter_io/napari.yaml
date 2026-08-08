@@ -1,0 +1,28 @@
+name: napeter-io
+display_name: Napeter IO
+# use 'hidden' to remove plugin from napari hub search results
+visibility: public
+# see https://napari.org/stable/plugins/technical_references/manifest.html#fields for valid categories
+# categories: []
+contributions:
+  commands:
+    - id: napeter-io.get_reader
+      python_name: napeter_io._reader:napari_get_reader
+      title: Open data with Napeter IO
+    - id: napeter-io.write_multiple
+      python_name: napeter_io._writer:write_multiple
+      title: Save multi-layer data with Napeter IO
+    - id: napeter-io.write_single_image
+      python_name: napeter_io._writer:write_single_image
+      title: Save image data with Napeter IO
+  readers:
+    - command: napeter-io.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  writers:
+    - command: napeter-io.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: napeter-io.write_single_image
+      layer_types: ['image']
+      filename_extensions: ['.npy']

@@ -1,0 +1,18 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v2.3.0
+_src_path: https://github.com/napari/napari-plugin-template
+display_name: Napeter IO
+email: peternewstein@gmail.com
+full_name: Peter Newstein
+github_repository_url: provide later
+github_username_or_organization: pnewstein
+include_reader_plugin: true
+include_sample_data_plugin: false
+include_widget_plugin: false
+include_writer_plugin: true
+install_dependabot: false
+install_precommit: false
+license: GNU GPL v3.0
+module_name: napeter_io
+plugin_name: napeter-io
+short_description: read write napeter files

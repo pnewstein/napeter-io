@@ -1,0 +1,68 @@
+# napeter-io
+
+[![License GNU GPL v3.0](https://img.shields.io/pypi/l/napeter-io.svg?color=green)](https://github.com/pnewstein/napeter-io/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napeter-io.svg?color=green)](https://pypi.org/project/napeter-io)
+[![Python Version](https://img.shields.io/pypi/pyversions/napeter-io.svg?color=green)](https://python.org)
+[![tests](https://github.com/pnewstein/napeter-io/workflows/tests/badge.svg)](https://github.com/pnewstein/napeter-io/actions)
+[![codecov](https://codecov.io/gh/pnewstein/napeter-io/branch/main/graph/badge.svg)](https://codecov.io/gh/pnewstein/napeter-io)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napeter-io)](https://napari-hub.org/plugins/napeter-io)
+[![npe2](https://img.shields.io/badge/plugin-npe2-blue?link=https://napari.org/stable/plugins/index.html)](https://napari.org/stable/plugins/index.html)
+[![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json)](https://github.com/copier-org/copier)
+
+read write napeter files
+
+----------------------------------
+
+This [napari] plugin was generated with [copier] using the [napari-plugin-template] (None).
+
+<!--
+Don't miss the full getting started guide to set up your new package:
+https://github.com/napari/napari-plugin-template#getting-started
+
+and review the napari docs for plugin developers:
+https://napari.org/stable/plugins/index.html
+-->
+
+## Installation
+
+You can install `napeter-io` via [pip]:
+
+```bash
+pip install napeter-io
+```
+
+If napari is not already installed, you can install `napeter-io` with napari and Qt via:
+
+```bash
+pip install "napeter-io[all]"
+```
+
+
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox], please ensure
+the coverage at least stays the same before you submit a pull request.
+
+## License
+
+Distributed under the terms of the [GNU GPL v3.0] license,
+"napeter-io" is free and open source software
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[napari]: https://github.com/napari/napari
+[copier]: https://copier.readthedocs.io/en/stable/
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
+[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
+[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
+[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
+[napari-plugin-template]: https://github.com/napari/napari-plugin-template
+
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
