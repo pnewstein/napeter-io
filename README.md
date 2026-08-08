@@ -1,7 +1,5 @@
 # napeter-io
 
-[![License GNU GPL v3.0](https://img.shields.io/pypi/l/napeter-io.svg?color=green)](https://github.com/pnewstein/napeter-io/raw/main/LICENSE)
-[![Python Version](https://img.shields.io/pypi/pyversions/napeter-io.svg?color=green)](https://python.org)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-purple.json)](https://github.com/copier-org/copier)
 
 read write napeter files
@@ -23,13 +21,7 @@ https://napari.org/stable/plugins/index.html
 You can install `napeter-io` via [pip]:
 
 ```bash
-pip install napeter-io
-```
-
-If napari is not already installed, you can install `napeter-io` with napari and Qt via:
-
-```bash
-pip install "napeter-io[all]"
+pip install git+https://github.com/pnewstein/napeter-io
 ```
 
 
