@@ -22,7 +22,7 @@ contributions:
   writers:
     - command: napeter-io.write_multiple
       layer_types: ['image*','points*','shapes*']
-      filename_extensions: []
+      filename_extensions: ['*.napeter']
     - command: napeter-io.write_single_image
       layer_types: ['image', "points", "shapes"]
-      filename_extensions: ['.napeter']
+      filename_extensions: ['*.napeter']
