@@ -1,66 +1,93 @@
 """
-This module is an example of a barebones writer plugin for napari.
-
-It implements the Writer specification.
-see: https://napari.org/stable/plugins/building_a_plugin/guides.html#writers
-
-Replace code below according to your needs.
+ignores the api and writes all layers
 """
 
-from __future__ import annotations
+import zipfile
+import pickle
+import pickle
+import shutil
+import json
+import warnings
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, cast
+from tempfile import TemporaryDirectory
+from io import TextIOWrapper
+from warnings import warn
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Union
+import napari.utils.colormaps
 
 if TYPE_CHECKING:
-    DataType = Union[Any, Sequence[Any]]
-    FullLayerData = tuple[DataType, dict, str]
+    from napari import Viewer
+    from napari_3d_counter import Count3D, CellTypeConfig
+
+
+def _save(path: Path, viewer: "Viewer"):
+    try:
+        c3d: "Count3D | None" = next(
+            w
+            for w in viewer.window.dock_widgets.values()
+            if w.__class__.__name__ == "Count3D"
+        )  # type: ignore
+    except StopIteration:
+        c3d = None
+    layers = viewer.layers.copy()
+    attrs_dict: dict[str, dict[str, Any]] = {}
+    for layer in layers:
+        if layer.__class__.__name__ == "Image":
+            layer_dict = {
+                "projection_mode": str(layer.projection_mode),
+                "blending": str(layer.blending),
+            }
+            colormap_name = layer.colormap.name  # type: ignore
+            if colormap_name in napari.utils.colormaps.ALL_COLORMAPS:
+                layer_dict["colormap"] = colormap_name
+
+        else:
+            layer_dict = {}
+        attrs_dict[layer.name] = layer_dict
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as z:
+        if c3d is not None:
+            z.writestr(
+                "cell_type_configs.pickle",
+                pickle.dumps(
+                    [
+                        d.get_calculated_config(c3d.out_of_slice_points.current_size)
+                        for d in c3d.cell_type_gui_and_data
+                    ]
+                ),
+            )
+            for ctgd in c3d.cell_type_gui_and_data:
+                del attrs_dict[ctgd.layer.name]
+            del attrs_dict[c3d.out_of_slice_points.name]
+            del attrs_dict[c3d.pointer.name]
+            z.writestr("n3d_counter_cells.csv", c3d.save_points_to_df().to_csv())
+        z.writestr("attrs.json", json.dumps(attrs_dict))
+        with TemporaryDirectory() as tempdir:
+            for layer_name in attrs_dict:
+                print(layer_name)
+                layer = viewer.layers[layer_name]
+                ext = ".tiff" if layer.__class__.__name__ == "Image" else ".csv"
+                layer_path = (Path(tempdir) / layer_name).with_suffix(ext)
+                layer.save(str(layer_path))
+                z.write(layer_path, layer_path.name)
 
 
 def write_single_image(path: str, data: Any, meta: dict) -> list[str]:
-    """Writes a single image layer.
-
-    Parameters
-    ----------
-    path : str
-        A string path indicating where to save the image file.
-    data : The layer data
-        The `.data` attribute from the napari layer.
-    meta : dict
-        A dictionary containing all other attributes from the napari layer
-        (excluding the `.data` layer attribute).
-
-    Returns
-    -------
-    [path] : A list containing the string path to the saved file.
-    """
-
-    # implement your writer logic here ...
-
-    # return path to any file(s) that were successfully written
+    _ = data
+    _ = meta
+    viewer = napari.current_viewer()
+    if viewer is None:
+        warn("could not find viewer")
+        return []
+    _save(Path(path), viewer)
     return [path]
 
 
-def write_multiple(path: str, data: list[FullLayerData]) -> list[str]:
-    """Writes multiple layers of different types.
-
-    Parameters
-    ----------
-    path : str
-        A string path indicating where to save the data file(s).
-    data : A list of layer tuples.
-        Tuples contain three elements: (data, meta, layer_type)
-        `data` is the layer data
-        `meta` is a dictionary containing all other metadata attributes
-        from the napari layer (excluding the `.data` layer attribute).
-        `layer_type` is a string, eg: "image", "labels", "surface", etc.
-
-    Returns
-    -------
-    [path] : A list containing (potentially multiple) string paths to the saved file(s).
-    """
-
-    # implement your writer logic here ...
-
-    # return path to any file(s) that were successfully written
+def write_multiple(path: str, data) -> list[str]:
+    _ = data
+    viewer = napari.current_viewer()
+    if viewer is None:
+        warn("could not find viewer")
+        return []
+    _save(Path(path), viewer)
     return [path]

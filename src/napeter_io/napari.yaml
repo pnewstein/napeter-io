@@ -18,11 +18,11 @@ contributions:
   readers:
     - command: napeter-io.get_reader
       accepts_directories: false
-      filename_patterns: ['*.npy']
+      filename_patterns: ['*.napeter']
   writers:
     - command: napeter-io.write_multiple
-      layer_types: ['image*','labels*']
+      layer_types: ['image*','points*','shapes*']
       filename_extensions: []
     - command: napeter-io.write_single_image
-      layer_types: ['image']
-      filename_extensions: ['.npy']
+      layer_types: ['image', "points", "shapes"]
+      filename_extensions: ['.napeter']
