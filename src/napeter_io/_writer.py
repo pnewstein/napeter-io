@@ -64,7 +64,6 @@ def _save(path: Path, viewer: "Viewer"):
         z.writestr("attrs.json", json.dumps(attrs_dict))
         with TemporaryDirectory() as tempdir:
             for layer_name in attrs_dict:
-                print(layer_name)
                 layer = viewer.layers[layer_name]
                 ext = ".tiff" if layer.__class__.__name__ == "Image" else ".csv"
                 layer_path = (Path(tempdir) / layer_name).with_suffix(ext)
