@@ -52,4 +52,4 @@ def reader_function(path):
                 with z.open(zipped_name) as src, temp_path.open("wb") as dst:
                     shutil.copyfileobj(src, dst)
                 viewer.open(temp_path, **layer_attrs)
-    return [None]
+    return [(None,)]
